@@ -26,9 +26,22 @@ jobs:
     - uses: ./.github/actions/JacocoBadge
     - uses: ./.github/actions/TestAndCoverageReportAction
 
+    - name: Get artifact name
+      id: get_artifact_name
+      run: |
+        artifactName=$(./gradlew printVersion | grep '[0-9].[0-9].[0-9]-SNAPSHOT')
+        echo $artifactName
+        echo "##[set-output name=artifactName;]${artifactName}"
+
+    - name: Debugging
+      id: debugging
+      run: |
+        echo 'one-build/libs/${{ steps.get_artifact_name.outputs.artifactName }}.jar'
+        echo "two-build/libs/${{ steps.get_artifact_name.outputs.artifactName }}.jar"
+        ls "build/libs"
 
     - name: Step 3 - Use the Upload Artifact GitHub Action
       uses: actions/upload-artifact@v2
       with:
-        name: artifact
-        path: build/libs/currency-rate-converter-0.0.1-SNAPSHOT.jar
+        name: "${{ steps.get_artifact_name.outputs.artifactName }}.jar"
+        path: 'build/libs/currency-rate-converter-${{ steps.get_artifact_name.outputs.artifactName }}.jar'
