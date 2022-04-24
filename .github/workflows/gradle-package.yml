@@ -9,7 +9,7 @@ name: Gradle Package
 
 on:
   push:
-    branches: [testin-ci]
+    branches: [feature/**]
   pull_request:
     types: [opened, reopened, synchronize]
   pull_request_review:
