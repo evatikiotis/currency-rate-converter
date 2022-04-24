@@ -35,7 +35,7 @@ jobs:
     - name: Step 3 - Use the Upload Artifact GitHub Action
       uses: actions/upload-artifact@v2
       with:
-        name: "currency-rate-converter-${{ steps.get_artifact_name.outputs.artifactName }}"
+        name: "currency-rate-converter-${{ steps.get_artifact_name.outputs.artifactName }}.jar"
         path: "build/libs/currency-rate-converter-${{ steps.get_artifact_name.outputs.artifactName }}.jar"
 
   create_and_publish_docker_image:
